@@ -1,4 +1,5 @@
 import React, { FC } from 'react';
+import { chunk } from 'lodash'
 
 const websafeColors = (): string[] => {
   // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number/toString
@@ -21,17 +22,26 @@ interface Props {
 }
 
 export const ColorPicker: FC<Props> = ({ onClick }) => {
+  const colorsPerRow = 6;
+
   return (
-    <>
-      {websafeColors().map(color => {
+    <div>
+      {chunk(websafeColors(), colorsPerRow).map(chunkOfColors => {
         return (
-          <div
-            key={color}
-            onClick={() => onClick(color)}
-            style={{ height: '10px', width: '10px', background: color }}
-          />
+          // chunkOfColors[0] will be unique for each row.
+          <div key={chunkOfColors[0]} style={{ display: 'flex' }}>
+            {chunkOfColors.map(color => {
+              return (
+                <div
+                  key={color}
+                  onClick={() => onClick(color)}
+                  style={{ height: '10px', width: '10px', background: color }}
+                />
+              )
+            })}
+          </div>
         )
       })}
-    </>
+    </div>
   );
 };
