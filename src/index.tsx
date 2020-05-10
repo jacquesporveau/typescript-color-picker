@@ -1,12 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import App from './App';
+import { ColorPicker } from './components/ColorPicker';
 import * as serviceWorker from './serviceWorker';
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <ColorPicker onClick={color => console.log(color)} />
   </React.StrictMode>,
   document.getElementById('root')
 );
